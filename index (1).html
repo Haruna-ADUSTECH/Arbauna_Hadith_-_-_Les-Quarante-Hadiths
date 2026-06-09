@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARBA'UNA HADITH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0D080;
+      --gold-dim: #8A6B2E;
+      --deep: #0D0D1A;
+      --deep2: #12122A;
+      --panel: rgba(255,255,255,0.04);
+      --panel-border: rgba(201,168,76,0.25);
+      --text: #F0E8D0;
+      --text-dim: #A89A7A;
+      --arabic-font: 'Scheherazade New', 'Amiri', serif;
+      --display-font: 'Cinzel Decorative', serif;
+      --body-font: 'Lato', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--body-font);
+      background-color: var(--deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Islamic geometric SVG background texture ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23C9A84C' stroke-width='0.4' opacity='0.18'%3E%3Cpolygon points='40,4 52,14 56,28 48,40 56,52 52,66 40,76 28,66 24,52 32,40 24,28 28,14'/%3E%3Cpolygon points='40,16 48,22 50,32 44,40 50,48 48,58 40,64 32,58 30,48 36,40 30,32 32,22'/%3E%3Cline x1='40' y1='4' x2='40' y2='16'/%3E%3Cline x1='40' y1='64' x2='40' y2='76'/%3E%3Cline x1='4' y1='40' x2='16' y2='40'/%3E%3Cline x1='64' y1='40' x2='76' y2='40'/%3E%3Ccircle cx='40' cy='40' r='5'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial glow in centre */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 20%, rgba(100,70,10,0.35) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 80% 80%, rgba(30,20,80,0.4) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 92%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeDown 1s ease both;
+    }
+
+    .ornament {
+      display: block;
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 12px;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+
+    .site-header h1 {
+      font-family: var(--display-font);
+      font-size: clamp(22px, 4vw, 40px);
+      color: var(--gold-light);
+      letter-spacing: 4px;
+      text-shadow: 0 0 30px rgba(201,168,76,0.5), 0 2px 4px rgba(0,0,0,0.8);
+      line-height: 1.2;
+    }
+
+    .site-header .subtitle {
+      font-family: var(--arabic-font);
+      font-size: clamp(16px, 2.5vw, 24px);
+      color: var(--gold-dim);
+      margin-top: 8px;
+      letter-spacing: 2px;
+    }
+
+    .divider {
+      width: 200px;
+      margin: 18px auto 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    /* ── Language Selector ── */
+    .lang-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+      animation: fadeDown 1s 0.2s ease both;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      padding: 9px 24px;
+      border: 1.5px solid var(--panel-border);
+      background: var(--panel);
+      color: var(--text-dim);
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.28s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lang-btn:hover,
+    .lang-btn.active {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: rgba(201,168,76,0.12);
+      box-shadow: 0 0 16px rgba(201,168,76,0.2);
+    }
+
+    .lang-flag { margin-right: 6px; font-size: 16px; }
+
+    /* ── Hadith Grid ── */
+    .hadith-buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hadith-buttons button {
+      padding: 14px 8px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      color: var(--text-dim);
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(4px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hadith-buttons button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .hadith-buttons button:hover::before,
+    .hadith-buttons button.selected::before { opacity: 1; }
+
+    .hadith-buttons button:hover,
+    .hadith-buttons button.selected {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      box-shadow: 0 0 14px rgba(201,168,76,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ── Hadith Display Card ── */
+    .hadith-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(201,168,76,0.04));
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 40px 44px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+      animation: fadeUp 0.7s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* corner decoration */
+    .hadith-card::before,
+    .hadith-card::after {
+      content: '❖';
+      position: absolute;
+      font-size: 30px;
+      color: var(--gold);
+      opacity: 0.15;
+    }
+    .hadith-card::before { top: 14px; left: 18px; }
+    .hadith-card::after  { bottom: 14px; right: 18px; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-family: var(--display-font);
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--gold-light);
+      letter-spacing: 2px;
+    }
+
+    .card-number {
+      width: 42px; height: 42px;
+      border: 1.5px solid var(--gold-dim);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display-font);
+      font-size: 14px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Arabic text block */
+    .arabic-main {
+      font-family: var(--arabic-font);
+      font-size: clamp(22px, 3.5vw, 32px);
+      color: var(--gold-light);
+      direction: rtl;
+      text-align: right;
+      line-height: 2;
+      background: rgba(0,0,0,0.25);
+      border-left: 3px solid var(--gold);
+      border-right: none;
+      border-right: 3px solid var(--gold);
+      padding: 18px 22px;
+      border-radius: 8px;
+      margin-bottom: 26px;
+      text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    }
+
+    /* Section labels */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 8px;
+    }
+
+    /* Explanation block */
+    .sharhi-block {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .sharhi-block p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    /* Quranic verse block */
+    .ayat-block {
+      background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(0,0,0,0.2));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 22px 26px;
+    }
+
+    .ayat-arabic {
+      font-family: var(--arabic-font);
+      font-size: clamp(18px, 2.5vw, 26px);
+      direction: rtl;
+      text-align: right;
+      line-height: 2;
+      color: #FFE08A;
+      margin-bottom: 14px;
+    }
+
+    .ayat-translation {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .ayat-ref {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      font-weight: 700;
+    }
+
+    /* placeholder */
+    .placeholder {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+    }
+
+    .placeholder .big-icon {
+      font-size: 56px;
+      display: block;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .placeholder h2 {
+      font-family: var(--display-font);
+      font-size: 18px;
+      color: var(--gold-dim);
+      margin-bottom: 8px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hadith-buttons { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hadith-buttons { grid-template-columns: repeat(3, 1fr); }
+      .hadith-card { padding: 26px 20px; }
+    }
+    @media (max-width: 420px) {
+      .hadith-buttons { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="site-header">
+    <span class="ornament">✦ ✦ ✦</span>
+    <h1>ARBA'UNA HADITH</h1>
+    <p class="subtitle">الأربعون النووية</p>
+    <div class="divider"></div>
+  </header>
+
+  <!-- Language Selector -->
+  <div class="lang-bar" id="langBar">
+    <button class="lang-btn active" data-lang="ha" onclick="setLang('ha', this)">
+      <span class="lang-flag">🇳🇬</span>Hausa
+    </button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en', this)">
+      <span class="lang-flag">🇬🇧</span>English
+    </button>
+    <button class="lang-btn" data-lang="fr" onclick="setLang('fr', this)">
+      <span class="lang-flag">🇫🇷</span>Français
+    </button>
+  </div>
+
+  <!-- Hadith Buttons -->
+  <div class="hadith-buttons" id="hadithButtons">
+    <!-- generated by JS -->
+  </div>
+
+  <!-- Display Card -->
+  <div class="hadith-card" id="hadithDisplay">
+    <div class="placeholder">
+      <span class="big-icon">☽</span>
+      <h2>Select a Hadith</h2>
+      <p>Choose a number above to read the Hadith with its commentary and Quranic reference.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── Data ─────────────────────────────────────────────────────────────
+const hadiths = [
+  {
+    title: "Hadith 1",
+    arabic: "إنَّما الأعمالُ بالنيَّات، وإنَّما لكلِّ امرئٍ ما نوى...",
+    ha:  { sharhi: "Wannan Hadith yana karantar da cewa ayyukan mutane suna bisa ga niyyarsu. Kowane aiki ana ƙididdige shi ne bisa ga niyyar mai aikin. Wanda ya yi hijira saboda Allah, yana samun lada na hijira ta Allah. Amma wanda ya yi hijira saboda duniya, ba zai sami lada ta Allah ba." },
+    en:  { sharhi: "This hadith teaches that all actions are judged by their intentions, and every person will receive according to what they intended. If someone migrates for the sake of Allah, they receive that reward; if for worldly gains, they receive only what they sought." },
+    fr:  { sharhi: "Ce hadith enseigne que les actions sont jugées selon les intentions. Chaque personne obtiendra selon ce qu'elle avait l'intention de faire. Celui qui émigre pour Allah reçoit la récompense divine; celui qui émigre pour des raisons mondaines n'obtient que cela." },
+    ayat: {
+      arabic: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا...",
+      ha: "Allah ba Ya ɗora wa kowa wani abu da ya fi ƙarfin sa...",
+      en: "Allah does not burden a soul beyond that it can bear...",
+      fr: "Allah n'impose à une âme que ce qu'elle peut supporter...",
+      reference: "Surat Al-Baqarah (2:286)"
+    }
+  },
+  {
+    title: "Hadith 2",
+    arabic: "الدِّينُ النَّصيحة. قُلنا: لمن؟ قال: للهِ ولكتابِه ولرسولِه ولأئمَّةِ المسلمين وعامَّتِهم...",
+    ha:  { sharhi: "Wannan Hadith yana nuna cewa addini gina nasihu ne ga Allah, Littafin sa, ManzonSa, shugabannin musulmi, da dukkan al'ummar musulmi. Nasiha ita ce ginshikin addinin musulunci." },
+    en:  { sharhi: "This hadith establishes that religion is founded on sincere advice (nasiha) — to Allah, His Book, His Messenger, the leaders of the Muslims, and the common people. Sincerity and well-wishing form the very foundation of Islam." },
+    fr:  { sharhi: "Ce hadith établit que la religion est fondée sur le conseil sincère (nasiha) — envers Allah, Son Livre, Son Messager, les dirigeants des musulmans et le peuple ordinaire. La sincérité est le pilier de l'Islam." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ...",
+      ha: "Yaku waɗanda suka yi imani! Ku ji tsoron Allah kuma ku kasance tare da masu gaskiya...",
+      en: "O you who believe! Fear Allah and be with the truthful...",
+      fr: "Ô croyants! Craignez Allah et soyez avec les véridiques...",
+      reference: "Surat At-Tawbah (9:119)"
+    }
+  },
+  {
+    title: "Hadith 3",
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت...",
+    ha:  { sharhi: "Wannan Hadith yana karantar da cewa duk wanda ya yi imani da Allah da ranar Lahira, ya kamata ya faɗi alheri ko ya yi shiru. Hadisin yana nuni da muhimmancin kame baki daga faɗar abubuwan da basu da amfani ko za su jawo cutarwa." },
+    en:  { sharhi: "Whoever believes in Allah and the Last Day should speak good or remain silent. This hadith is a profound lesson in guarding one's tongue — choosing only words of benefit, and silence when there is nothing beneficial to say." },
+    fr:  { sharhi: "Celui qui croit en Allah et au Jour Dernier doit dire du bien ou se taire. Ce hadith est une leçon profonde sur la maîtrise de la parole — ne choisir que des mots bénéfiques, et garder le silence sinon." },
+    ayat: {
+      arabic: "وَإِذَا حُيِّيتُم بِتَحِيَّةٍ فَحَيُّوا بِأَحْسَنَ مِنْهَا أَوْ رُدُّوهَا...",
+      ha: "Kuma idan aka yi muku sallama da gaisuwa, ku mayar da ita da mafi kyau ko kuma ku mayar da ita daidai.",
+      en: "When you are greeted with a greeting, respond with a better one or return it equally. Indeed Allah takes account of all things.",
+      fr: "Lorsqu'on vous salue, répondez avec une meilleure salutation ou retournez-la. Allah tient compte de toutes choses.",
+      reference: "Surat An-Nisa (4:86)"
+    }
+  },
+  {
+    title: "Hadith 4",
+    arabic: "الظلم ظلمات يوم القيامة...",
+    ha:  { sharhi: "Wannan Hadith yana jan hankali daga aikata zalunci, domin zalunci duhu ne a ranar Kiyama. Ya kamata musulmi ya kare kansa daga zalunci kowane iri." },
+    en:  { sharhi: "Oppression will appear as layers of darkness on the Day of Resurrection. This hadith is a stern warning against all forms of injustice, urging believers to protect themselves and others from wrongdoing." },
+    fr:  { sharhi: "L'oppression sera des ténèbres au Jour de la Résurrection. Ce hadith est un avertissement sévère contre toutes les formes d'injustice, invitant les croyants à se protéger et protéger autrui." },
+    ayat: {
+      arabic: "وَلَا تَحْسَبَنَّ اللَّهَ غَافِلًا عَمَّا يَعْمَلُ الظَّالِمُونَ...",
+      ha: "Kada ka yi tsammanin Allah mai gafala ne daga abin da azzalumai suke aikatawa...",
+      en: "And never think that Allah is unaware of what the wrongdoers do...",
+      fr: "Ne pense jamais qu'Allah soit inattentif à ce que font les injustes...",
+      reference: "Surat Ibrahim (14:42)"
+    }
+  },
+  {
+    title: "Hadith 5",
+    arabic: "إن الله لا ينظر إلى صوركم وأموالكم ولكن ينظر إلى قلوبكم وأعمالكم...",
+    ha:  { sharhi: "Allah ba ya kallon kamannin mutane ko dukiyarsu, sai dai zuciyarsu da ayyukansu. Wannan yana nuna cewa ƙimar mutum a wajen Allah tana bisa ga tsarkin zuciya da ingancin aiki." },
+    en:  { sharhi: "Allah does not look at your appearances or wealth, but He looks at your hearts and deeds. True worth in the sight of Allah lies in sincerity of heart and righteousness of action, not outward form." },
+    fr:  { sharhi: "Allah ne regarde pas vos apparences ni vos richesses, mais Il regarde vos cœurs et vos actes. La vraie valeur aux yeux d'Allah réside dans la pureté du cœur et la droiture des actions." },
+    ayat: {
+      arabic: "يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا...",
+      ha: "Ya ku mutane! Mun halicce ku daga namiji da mace, kuma Mun sanya ku al'ummomi da kabilu domin ku san juna...",
+      en: "O mankind, We created you from a male and female and made you peoples and tribes that you may know one another...",
+      fr: "Ô humanité, Nous vous avons créés d'un mâle et d'une femelle et Nous avons fait de vous des peuples et des tribus pour que vous vous connaissiez...",
+      reference: "Surat Al-Hujurat (49:13)"
+    }
+  },
+  {
+    title: "Hadith 6",
+    arabic: "إذا مات الإنسان انقطع عمله إلا من ثلاث: صدقة جارية أو علم ينتفع به أو ولد صالح يدعو له...",
+    ha:  { sharhi: "Idan mutum ya mutu, dukkan aikinsa yana yankewa sai dai guda uku: Sadaqa mai gudana, ilimin da ake amfani da shi, da ɗa nagari wanda yake yi masa addu'a. Waɗannan sune hanyoyin samun lada bayan mutuwa." },
+    en:  { sharhi: "When a person dies, their deeds cease except for three: ongoing charity, beneficial knowledge, and a righteous child who prays for them. These three are the paths by which a person's good deeds can continue to benefit them after death." },
+    fr:  { sharhi: "Quand une personne décède, ses actes s'arrêtent sauf trois: une aumône continue, un savoir dont on profite, ou un enfant pieux qui prie pour lui. Ce sont les voies par lesquelles les bonnes actions continuent après la mort." },
+    ayat: {
+      arabic: "الْمَالُ وَالْبَنُونَ زِينَةُ الْحَيَاةِ الدُّنْيَا...",
+      ha: "Dukiya da 'ya'ya suna daga cikin kayan ado na rayuwar duniya...",
+      en: "Wealth and children are the adornment of worldly life...",
+      fr: "Les richesses et les enfants sont l'ornement de la vie ici-bas...",
+      reference: "Surat Al-Kahf (18:46)"
+    }
+  },
+  {
+    title: "Hadith 7",
+    arabic: "من صلى عليَّ واحدةً صلَّى اللهُ عليه بها عشراً...",
+    ha:  { sharhi: "Wannan Hadith yana nuna falalar yin salati ga Manzon Allah, inda Allah zai yi salati sau goma ga wanda ya yi sau ɗaya. Yin salati shine ɗaya daga cikin mafi muhimmancin ibadah." },
+    en:  { sharhi: "Whoever sends one blessing upon me, Allah will send ten blessings upon him. This hadith highlights the immense reward of sending prayers upon the Prophet (ﷺ) and encourages believers to do so abundantly." },
+    fr:  { sharhi: "Celui qui prie une fois sur moi, Allah lui accordera dix bénédictions. Ce hadith souligne l'immense récompense d'invoquer des bénédictions sur le Prophète (ﷺ) et encourage les croyants à le faire abondamment." },
+    ayat: {
+      arabic: "إِنَّ اللَّهَ وَمَلَائِكَتَهُ يُصَلُّونَ عَلَى النَّبِيِّ يَا أَيُّهَا الَّذِينَ آمَنُوا صَلُّوا عَلَيْهِ وَسَلِّمُوا تَسْلِيمًا...",
+      ha: "Lallai Allah da mala'ikunsa suna yi wa Annabi salati. Ya ku wadanda suka yi imani! Ku yi salati gare shi, ku yi masa sallama.",
+      en: "Indeed, Allah confers blessing upon the Prophet, and His angels do so. O believers, invoke blessing upon him and greet him with a worthy greeting.",
+      fr: "En vérité, Allah et Ses anges prient sur le Prophète. Ô croyants, priez sur lui et saluez-le dignement.",
+      reference: "Surat Al-Ahzab (33:56)"
+    }
+  },
+  {
+    title: "Hadith 8",
+    arabic: "من حسن إسلام المرء تركه ما لا يعنيه...",
+    ha:  { sharhi: "Daga kyawun Musulunci shine mutum ya bar abin da ba ya damunsa. Wannan yana nuna mahimmancin mai da hankali kan abin da ke da amfani da guje wa ɓata lokaci." },
+    en:  { sharhi: "Part of the perfection of one's Islam is leaving what does not concern them. This hadith teaches focus and discipline — a good Muslim avoids meddling in matters that do not benefit them or others." },
+    fr:  { sharhi: "Parmi la perfection de l'Islam d'une personne est de délaisser ce qui ne la concerne pas. Ce hadith enseigne la discipline — un bon musulman évite de s'immiscer dans ce qui ne lui profite pas." },
+    ayat: {
+      arabic: "وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ...",
+      ha: "Kada ka bi abin da ba ka da ilmi a kansa.",
+      en: "Do not pursue that of which you have no knowledge.",
+      fr: "Ne suis pas ce dont tu n'as pas de connaissance.",
+      reference: "Surat Al-Isra (17:36)"
+    }
+  },
+  {
+    title: "Hadith 9",
+    arabic: "المرء على دين خليله فلينظر أحدكم من يُخالل...",
+    ha:  { sharhi: "Halin mutum yana bisa ga halin abokan sa, don haka dole ne ya zaɓi abokansa da kyau. Aboki mai nagarta zai ja ka zuwa ga alheri, amma abokin mugunta zai ja ka zuwa mugunta." },
+    en:  { sharhi: "A person follows the religion of their close friend, so let each person consider carefully who they befriend. Good companions lead one toward righteousness; bad ones lead toward corruption." },
+    fr:  { sharhi: "Une personne suit la religion de son ami proche, donc que chacun considère attentivement qui il choisit comme ami. Les bons compagnons mènent à la vertu; les mauvais mènent à la corruption." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ji tsoron Allah, kuma ku kasance tare da masu gaskiya.",
+      en: "O believers! Fear Allah and be with the truthful.",
+      fr: "Ô croyants! Craignez Allah et soyez avec les véridiques.",
+      reference: "Surat At-Tawbah (9:119)"
+    }
+  },
+  {
+    title: "Hadith 10",
+    arabic: "من لا يشكر الناس لا يشكر الله...",
+    ha:  { sharhi: "Duk wanda ba ya gode wa mutane ba zai iya godiya ga Allah ba. Godiya ga mutane da Allah suna da alaƙa ta kut da kut — wanda ba ya gode wa ɗan'adam, nuna cewa ba shi da ruhun godiya ga Mahalicci." },
+    en:  { sharhi: "Whoever does not thank people does not thank Allah. Gratitude to people and gratitude to Allah are interconnected — one who cannot express thanks to fellow humans has not truly grasped the spirit of gratitude toward the Creator." },
+    fr:  { sharhi: "Celui qui ne remercie pas les gens ne remercie pas Allah. La gratitude envers les hommes et envers Allah sont liées — celui qui ne peut exprimer sa gratitude aux humains n'a pas saisi l'esprit de la reconnaissance envers le Créateur." },
+    ayat: {
+      arabic: "وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ...",
+      ha: "Kuma lokacin da Ubangijinku Ya yi sanarwa: idan kun gode, hakika zan ƙara muku (ni'ima).",
+      en: "And when your Lord proclaimed: if you are grateful, I will certainly increase you in favour.",
+      fr: "Et lorsque votre Seigneur a proclamé: si vous êtes reconnaissants, Je vous augmenterai certainement.",
+      reference: "Surat Ibrahim (14:7)"
+    }
+  },
+  {
+    title: "Hadith 11",
+    arabic: "الدِّينُ النَّصيحة...",
+    ha:  { sharhi: "Addini nasiha ne — ga Allah, Manzonsa, Littafinsa, shugabannin musulmi, da dukkan al'ummar muminai. Nasiha ta gaskiya ita ce alaƙar tsakanin musulmi da 'yan'uwansa." },
+    en:  { sharhi: "Religion is sincere counsel. This brief but powerful hadith summarises the essence of Islam in one word: nasiha. Sincere well-wishing for every member of the community is the core of faith." },
+    fr:  { sharhi: "La religion est le conseil sincère. Ce bref mais puissant hadith résume l'essence de l'Islam en un mot: nasiha. Vouloir sincèrement le bien pour chaque membre de la communauté est au cœur de la foi." },
+    ayat: {
+      arabic: "وَذَكِّرْ فَإِنَّ الذِّكْرَى تَنفَعُ الْمُؤْمِنِينَ...",
+      ha: "Kuma ka yi tunatarwa, domin tunatarwa tana amfanar da muminai.",
+      en: "And remind, for indeed reminding benefits the believers.",
+      fr: "Et rappelle, car le rappel profite aux croyants.",
+      reference: "Surat Adh-Dhariyat (51:55)"
+    }
+  },
+  {
+    title: "Hadith 12",
+    arabic: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه...",
+    ha:  { sharhi: "Ba zai cika imanin mutum ba har sai yana son ɗan'uwansa abin da yake so wa kansa. Wannan shine ginshikin hadin kan alummar musulmi — kaunar juna kamar kaunar kai." },
+    en:  { sharhi: "None of you will truly believe until you love for your brother what you love for yourself. This golden rule of brotherhood is the cornerstone of the Muslim community — genuine concern for others as for oneself." },
+    fr:  { sharhi: "Aucun d'entre vous ne croira vraiment jusqu'à ce qu'il aime pour son frère ce qu'il aime pour lui-même. Cette règle d'or de la fraternité est la pierre angulaire de la communauté musulmane." },
+    ayat: {
+      arabic: "إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ...",
+      ha: "Hakika muminai 'yan'uwa ne.",
+      en: "The believers are but brothers.",
+      fr: "Les croyants ne sont que des frères.",
+      reference: "Surat Al-Hujurat (49:10)"
+    }
+  },
+  {
+    title: "Hadith 13",
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت...",
+    ha:  { sharhi: "Wanda ya yi imani da Allah da ranar Lahira, ya fadi alheri ko ya yi shiru. Babu wani abu da aka faɗa face akwai mai rubutawa shi. Saboda haka, dole ne a zaɓi kalmomi da hannu biyu." },
+    en:  { sharhi: "Whoever believes in Allah and the Last Day should speak good or remain silent. Every word is recorded. A believer therefore chooses their speech carefully, preferring silence over harmful or idle words." },
+    fr:  { sharhi: "Celui qui croit en Allah et au Jour Dernier doit dire du bien ou se taire. Chaque mot est enregistré. Le croyant choisit donc soigneusement ses paroles, préférant le silence aux mots nuisibles." },
+    ayat: {
+      arabic: "مَا يَلْفِظُ مِنْ قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ...",
+      ha: "Babu abin da ya fadi daga magana face akwai mai tsaro da rubutu kusa da shi.",
+      en: "He does not utter any word except that there is an observer near him, ready to record.",
+      fr: "Il ne prononce aucune parole sans qu'un observateur prêt à l'enregistrer ne soit près de lui.",
+      reference: "Surat Qaf (50:18)"
+    }
+  },
+  {
+    title: "Hadith 14",
+    arabic: "من لا يرحم لا يُرحَم...",
+    ha:  { sharhi: "Duk wanda ba ya jin kai ga mutane ba zai samu jin kai daga Allah ba. Rahama tana janyo rahama — wanda zuciyarsa take cike da tausayi ga wasu, zai samu tausayin Allah." },
+    en:  { sharhi: "Whoever does not show mercy will not be shown mercy. Compassion begets compassion — a heart filled with mercy toward others opens itself to receive the infinite mercy of Allah." },
+    fr:  { sharhi: "Celui qui ne fait pas preuve de miséricorde ne recevra pas de miséricorde. La compassion engendre la compassion — un cœur rempli de pitié pour autrui s'ouvre à la miséricorde infinie d'Allah." },
+    ayat: {
+      arabic: "فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ لِنتَ لَهُمْ...",
+      ha: "To saboda wata rahama daga Allah ka yi musu tausayi.",
+      en: "So by mercy from Allah you were gentle with them.",
+      fr: "C'est par miséricorde d'Allah que tu as été doux envers eux.",
+      reference: "Surat Aal-Imran (3:159)"
+    }
+  },
+  {
+    title: "Hadith 15",
+    arabic: "المسلم من سلم المسلمون من لسانه ويده...",
+    ha:  { sharhi: "Musulmi shine wanda sauran musulmai suke cikin aminci daga harshensa da hannunsa. Ma'anar musulunci ta gaskiya tana nuna kanta ta hanyar ba cutarwa wani da magana ko da aikata." },
+    en:  { sharhi: "A Muslim is one from whose tongue and hand other Muslims are safe. The true meaning of being Muslim manifests through harmlessness — not injuring others with words or actions." },
+    fr:  { sharhi: "Le musulman est celui dont les autres musulmans sont à l'abri de sa langue et de sa main. Le vrai sens du fait d'être musulman se manifeste par l'innocuité — ne pas blesser autrui par des mots ou des actes." },
+    ayat: {
+      arabic: "وَقُولُوا لِلنَّاسِ حُسْنًا...",
+      ha: "Kuma ku yi wa mutane magana da kyakkyawar kalma.",
+      en: "And speak to people kindly.",
+      fr: "Et parlez aux gens avec bonté.",
+      reference: "Surat Al-Baqarah (2:83)"
+    }
+  },
+  {
+    title: "Hadith 16",
+    arabic: "لا ضرر ولا ضرار...",
+    ha:  { sharhi: "Babu cutarwa a cikin Musulunci, kuma kada a rama cutarwa da cutarwa. Wannan Hadith shine ɗaya daga cikin ginshiƙan doka ta Musulunci wanda ke kare mutane daga cutarwa kowace iri." },
+    en:  { sharhi: "There should be no harm inflicted and no harm reciprocated. This is one of the foundational legal maxims of Islam, protecting individuals from harm in all its forms and prohibiting retaliation by causing equal harm." },
+    fr:  { sharhi: "Il ne doit y avoir ni tort causé ni tort causé en retour. C'est l'un des principes juridiques fondamentaux de l'Islam, protégeant les individus de tout préjudice et interdisant les représailles." },
+    ayat: {
+      arabic: "فَمَنِ اعْتَدَى عَلَيْكُمْ فَاعْتَدُوا عَلَيْهِ بِمِثْلِ مَا اعْتَدَى عَلَيْكُمْ...",
+      ha: "Kuma duk wanda ya cutar da ku, to ku rama da irin abin da ya yi muku.",
+      en: "Whoever aggresses against you, respond with a proportionate measure.",
+      fr: "Quiconque vous attaque, répondez-lui dans la même mesure.",
+      reference: "Surat Al-Baqarah (2:194)"
+    }
+  },
+  {
+    title: "Hadith 17",
+    arabic: "اتقِ اللهَ حيثما كنتَ وأتبعِ السيئةَ الحسنةَ تمحُها وخالق الناسَ بخُلقٍ حسن...",
+    ha:  { sharhi: "Ji tsoron Allah a duk inda kake, kuma bi mummunar aiki da kyakkyawa ta share shi, kuma mu'amala da mutane da kyawawan halaye. Waɗannan su ne ginshiƙan halin musulmi guda uku." },
+    en:  { sharhi: "Fear Allah wherever you are; follow a bad deed with a good one to erase it; and treat people with good character. These three directives form the essential framework for a Muslim's personal ethics and social conduct." },
+    fr:  { sharhi: "Crains Allah où que tu sois; fais suivre une mauvaise action d'une bonne pour l'effacer; et traite les gens avec un bon caractère. Ces trois directives forment le cadre de l'éthique musulmane personnelle et sociale." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَقُولُوا قَوْلًا سَدِيدًا...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ji tsoron Allah, kuma ku fadi magana madaidaiciya.",
+      en: "O believers! Fear Allah and speak words of appropriate justice.",
+      fr: "Ô croyants! Craignez Allah et dites des paroles droites.",
+      reference: "Surat Al-Ahzab (33:70)"
+    }
+  },
+  {
+    title: "Hadith 18",
+    arabic: "ازهد في الدنيا يحبك الله وازهد فيما عند الناس يحبك الناس...",
+    ha:  { sharhi: "Rashin son duniya yana sanya mutum ya sami ƙaunar Allah, kuma rashin son abin da ke wurin mutane yana sanya mutane su ƙaunace ka. Zuhudi shine makullin so na Allah da na mutane." },
+    en:  { sharhi: "Renounce the world and Allah will love you; renounce what people possess and people will love you. Detachment from worldly desires is the key to both divine and human love — a profoundly balanced teaching." },
+    fr:  { sharhi: "Renonce au monde et Allah t'aimera; renonce à ce que possèdent les gens et les gens t'aimeront. Le détachement des désirs mondains est la clé de l'amour divin et humain — un enseignement profondément équilibré." },
+    ayat: {
+      arabic: "إِنَّمَا هَذِهِ الْحَيَاةُ الدُّنْيَا مَتَاعٌ...",
+      ha: "Hakika wannan rayuwar duniya abu ne mai wucewa.",
+      en: "This worldly life is nothing but a passing enjoyment.",
+      fr: "Cette vie mondaine n'est qu'une jouissance passagère.",
+      reference: "Surat Al-Imran (3:185)"
+    }
+  },
+  {
+    title: "Hadith 19",
+    arabic: "من سلك طريقاً يلتمس فيه علماً سهَّل الله له به طريقاً إلى الجنة...",
+    ha:  { sharhi: "Wanda ya bi hanyar neman ilimi, Allah zai sauƙaƙa masa hanyar shiga Aljanna. Neman ilimi ibada ce ta musamman da ke bude ƙofofi na rahama da shiriya." },
+    en:  { sharhi: "Whoever treads a path in search of knowledge, Allah will make easy for them a path to Paradise. The pursuit of knowledge is a special act of worship that opens doors to divine mercy and guidance." },
+    fr:  { sharhi: "Celui qui emprunte un chemin à la recherche du savoir, Allah lui facilitera un chemin vers le Paradis. La quête du savoir est un acte d'adoration spécial qui ouvre les portes de la miséricorde divine." },
+    ayat: {
+      arabic: "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ...",
+      ha: "Allah zai ɗaukaka waɗanda suka yi imani daga cikinku da waɗanda aka ba su ilimi da matsayi.",
+      en: "Allah will raise those who have believed among you and those given knowledge by degrees.",
+      fr: "Allah élèvera ceux d'entre vous qui ont cru et ceux à qui le savoir a été accordé.",
+      reference: "Surat Al-Mujadilah (58:11)"
+    }
+  },
+  {
+    title: "Hadith 20",
+    arabic: "إنَّما الأعمال بالنيَّات...",
+    ha:  { sharhi: "Kowane aiki yana bisa ga niyya, kuma kowa zai sami sakamako gwargwadon niyyarsa. Idan niyya ta kasance ta Allah, ladan zai kasance na Allah ne. Wannan Hadith shine ginshiƙi na farko a cikin ilimin fiqhu na Musulunci." },
+    en:  { sharhi: "Deeds are according to intentions. This foundation of Islamic jurisprudence reminds us that the internal motivation behind every act determines its spiritual reward. Pure intention elevates even ordinary acts to worship." },
+    fr:  { sharhi: "Les actions sont selon les intentions. Ce fondement de la jurisprudence islamique nous rappelle que la motivation interne de chaque acte détermine sa récompense spirituelle. Une intention pure élève même les actes ordinaires au rang d'adoration." },
+    ayat: {
+      arabic: "إِنَّمَا نُطْعِمُكُمْ لِوَجْهِ اللَّهِ لَا نُرِيدُ مِنكُمْ جَزَاءً وَلَا شُكُورًا...",
+      ha: "Hakika muna ba ku abinci don neman yardar Allah, ba mu neman sakamako daga gare ku ko godiya.",
+      en: "We feed you only for the sake of Allah; we desire from you no reward or gratitude.",
+      fr: "Nous ne vous nourrissons que pour l'amour d'Allah; nous ne voulons de vous ni récompense ni reconnaissance.",
+      reference: "Surat Al-Insan (76:9)"
+    }
+  },
+  {
+    title: "Hadith 21",
+    arabic: "من غشَّنا فليس منَّا...",
+    ha:  { sharhi: "Duk wanda ya yi zamba ba ya cikin al'ummar musulmi. Gaskiya da aminci su ne ginshiƙan kasuwancin Musulunci da rayuwar yau da kullum. Zamba yana lalata al'umma daga ciki." },
+    en:  { sharhi: "Whoever deceives us is not one of us. Honesty and trustworthiness are the foundation of Islamic commerce and daily life. Deception corrupts the community from within." },
+    fr:  { sharhi: "Celui qui nous trompe n'est pas des nôtres. L'honnêteté et la confiance sont les fondements du commerce islamique et de la vie quotidienne. La tromperie corrompt la communauté de l'intérieur." },
+    ayat: {
+      arabic: "وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ...",
+      ha: "Kuma ku cika sikeli idan kuna auna, ku auna da sikeli madaidaici.",
+      en: "Give full measure when you measure and weigh with an even balance.",
+      fr: "Donnez la pleine mesure quand vous mesurez et pesez avec une balance équitable.",
+      reference: "Surat Al-Isra (17:35)"
+    }
+  },
+  {
+    title: "Hadith 22",
+    arabic: "إذا التقى المسلمان بسيفيهما فالقاتل والمقتول في النار...",
+    ha:  { sharhi: "Idan musulmi biyu sun yi fada da makamai, duka wanda ya kashe da wanda aka kashe sun cancanci azaba. Wannan yana nuna ƙiyayyar Musulunci ga yakin basasa da kisan juna tsakanin muminai." },
+    en:  { sharhi: "If two Muslims face each other with swords, both the killer and the killed are in the Fire. This hadith expresses Islam's deep aversion to internecine conflict and killing among believers." },
+    fr:  { sharhi: "Si deux musulmans se font face avec des épées, le tueur et le tué sont dans le Feu. Ce hadith exprime la profonde aversion de l'Islam pour les conflits internes et le meurtre entre croyants." },
+    ayat: {
+      arabic: "وَلَا تَقْتُلُوا النَّفْسَ الَّتِي حَرَّمَ اللَّهُ إِلَّا بِالْحَقِّ...",
+      ha: "Kada ku kashe rai da Allah ya haramta, sai dai da gaskiya.",
+      en: "Do not kill the soul which Allah has forbidden, except by right.",
+      fr: "Ne tuez pas l'âme qu'Allah a interdite, sauf pour une juste cause.",
+      reference: "Surat Al-Isra (17:33)"
+    }
+  },
+  {
+    title: "Hadith 23",
+    arabic: "اتقوا الله وأصلحوا ذات بينكم...",
+    ha:  { sharhi: "Ji tsoron Allah, ku gyara tsakaninku. Gyara alakar tsakanin muminai yana da girman lada a wajen Allah. Sau da yawa yana fi ƙima fiye da salla da azumi na musamman." },
+    en:  { sharhi: "Fear Allah and mend relations between yourselves. Repairing bonds between believers carries immense reward. It is sometimes considered greater than optional fasting and prayer." },
+    fr:  { sharhi: "Craignez Allah et rétablissez vos liens. Réparer les liens entre les croyants est d'une immense récompense. Cela est parfois considéré comme plus grand que le jeûne et la prière facultatifs." },
+    ayat: {
+      arabic: "فَاتَّقُوا اللَّهَ وَأَصْلِحُوا ذَاتَ بَيْنِكُمْ...",
+      ha: "Ku ji tsoron Allah, ku gyara tsakaninku.",
+      en: "So fear Allah and set right what is between you.",
+      fr: "Craignez donc Allah et rétablissez vos relations.",
+      reference: "Surat Al-Anfal (8:1)"
+    }
+  },
+  {
+    title: "Hadith 24",
+    arabic: "من عادى لي ولياً فقد آذنته بالحرب...",
+    ha:  { sharhi: "Duk wanda ya yi gaba da waliyyin Allah, Allah zai yi yaki da shi. Wannan Hadith Qudsi yana nuna irin nauyin da ke kan wanda ya cutar da waliyyai da muminai." },
+    en:  { sharhi: "Whoever shows enmity to a friend of Mine, I declare war on them. This Hadith Qudsi illustrates the gravity of harming the righteous servants of Allah and the divine protection they receive." },
+    fr:  { sharhi: "Quiconque montre de l'hostilité envers un de Mes proches, Je lui déclare la guerre. Ce Hadith Qudsi illustre la gravité de nuire aux serviteurs vertueux d'Allah et la protection divine dont ils bénéficient." },
+    ayat: {
+      arabic: "إِنَّ اللَّهَ يُدَافِعُ عَنِ الَّذِينَ آمَنُوا...",
+      ha: "Hakika Allah yana kare waɗanda suka yi imani.",
+      en: "Indeed, Allah defends those who believe.",
+      fr: "En vérité, Allah défend ceux qui croient.",
+      reference: "Surat Al-Hajj (22:38)"
+    }
+  },
+  {
+    title: "Hadith 25",
+    arabic: "إن الله طيب لا يقبل إلا طيباً...",
+    ha:  { sharhi: "Allah mai tsarki ne kuma ba ya karɓar sai abin da ya halatta. Wannan yana nuna muhimmancin neman halal a rayuwa duka, domin an gina karɓuwar ibada da addu'a a kai." },
+    en:  { sharhi: "Allah is pure and accepts only what is pure. This hadith teaches the importance of seeking lawful means in all aspects of life, as the acceptance of worship and supplication is built upon this foundation." },
+    fr:  { sharhi: "Allah est pur et n'accepte que ce qui est pur. Ce hadith enseigne l'importance de rechercher des moyens licites dans tous les aspects de la vie, car l'acceptation de l'adoration est fondée sur cela." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا كُلُوا مِنْ طَيِّبَاتِ مَا رَزَقْنَاكُمْ...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ci daga cikin halal ɗin abin da muka azurta ku da shi.",
+      en: "O believers! Eat of the pure things We have provided for you.",
+      fr: "Ô croyants! Mangez des bonnes choses que Nous vous avons accordées.",
+      reference: "Surat Al-Baqarah (2:172)"
+    }
+  },
+  {
+    title: "Hadith 26",
+    arabic: "إذا أحب الله عبداً ابتلاه...",
+    ha:  { sharhi: "Idan Allah yana son bawa, sai ya jarraba shi da wani abu don tabbatar da imaninsa. Jarrabawa tana kawo kusa da Allah ga wanda ya yi hakuri da shi da gode masa." },
+    en:  { sharhi: "When Allah loves a servant, He tests them. Trials bring the believer closer to Allah — the one who bears them with patience and gratitude finds their faith deepened and their rank elevated." },
+    fr:  { sharhi: "Quand Allah aime un serviteur, Il l'éprouve. Les épreuves rapprochent le croyant d'Allah — celui qui les supporte avec patience et gratitude approfondit sa foi et élève son rang." },
+    ayat: {
+      arabic: "وَلَنَبْلُوَنَّكُمْ بِشَيْءٍ مِّنَ الْخَوْفِ وَالْجُوعِ...",
+      ha: "Kuma lalle zamu jarraba ku da wani abu na tsoro da yunwa.",
+      en: "We will surely test you with something of fear and hunger.",
+      fr: "Nous vous éprouverons certainement d'une certaine crainte et faim.",
+      reference: "Surat Al-Baqarah (2:155)"
+    }
+  },
+  {
+    title: "Hadith 27",
+    arabic: "ليس الشديد بالصُّرَعة، إنما الشديد الذي يملك نفسه عند الغضب...",
+    ha:  { sharhi: "Karfi na gaskiya shine iya sarrafa zuciya lokacin fushi, ba tsananin jiki ba. Zuciya mai ƙarfi tana cikin wanda ya kame kansa da fushi ya daure shi." },
+    en:  { sharhi: "The strong person is not one who wrestles others down; the truly strong is one who controls themselves in anger. Mastery of one's emotions, especially rage, is the highest form of strength in Islam." },
+    fr:  { sharhi: "Le fort n'est pas celui qui renverse les autres; le vrai fort est celui qui se maîtrise dans la colère. La maîtrise de ses émotions, surtout la rage, est la forme la plus haute de force en Islam." },
+    ayat: {
+      arabic: "وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ...",
+      ha: "Waɗanda suke jure fushi, kuma suna yafiya ga mutane.",
+      en: "Those who restrain their anger and pardon people.",
+      fr: "Ceux qui répriment leur colère et pardonnent aux gens.",
+      reference: "Surat Aal-Imran (3:134)"
+    }
+  },
+  {
+    title: "Hadith 28",
+    arabic: "من لا يشكر الناس لا يشكر الله...",
+    ha:  { sharhi: "Wanda ba ya gode wa mutane, ba zai iya godewa Allah ba. Godiya ga 'yan'uwa ɗan adam shine ɗaya daga cikin alamomin godiya ga Mahalicci." },
+    en:  { sharhi: "Whoever does not thank people does not thank Allah. Gratitude to fellow human beings is a sign and training ground for true gratitude to the Creator. Both are interconnected virtues." },
+    fr:  { sharhi: "Celui qui ne remercie pas les gens ne remercie pas Allah. La gratitude envers les hommes est un signe et un terrain d'entraînement pour la vraie gratitude envers le Créateur. Les deux sont des vertus liées." },
+    ayat: {
+      arabic: "وَاشْكُرُوا لِلَّهِ إِن كُنتُمْ إِيَّاهُ تَعْبُدُونَ...",
+      ha: "Kuma ku gode wa Allah idan kuna bauta masa shi kaɗai.",
+      en: "And be grateful to Allah if it is Him that you worship.",
+      fr: "Et soyez reconnaissants envers Allah si c'est Lui que vous adorez.",
+      reference: "Surat Al-Baqarah (2:172)"
+    }
+  },
+  {
+    title: "Hadith 29",
+    arabic: "الكلمة الطيبة صدقة...",
+    ha:  { sharhi: "Kyakkyawan magana sadaka ce. Wannan Hadith yana nuna cewa sadaka ba ta iyakance ga kudi ba, kowane alheri da mutum ya yi, har da ɗaya kalma mai kyau, sadaka ce." },
+    en:  { sharhi: "A kind word is charity. This hadith broadens the concept of charity beyond wealth — every act of goodness, including a single positive word, is an act of giving and earns spiritual reward." },
+    fr:  { sharhi: "Une bonne parole est une aumône. Ce hadith élargit le concept de charité au-delà de la richesse — chaque acte de bonté, y compris un seul mot positif, est un acte de don et mérite une récompense spirituelle." },
+    ayat: {
+      arabic: "وَقُولُوا لِلنَّاسِ حُسْنًا...",
+      ha: "Kuma ku yi wa mutane magana da kyau.",
+      en: "And speak to people in the best manner.",
+      fr: "Et parlez aux gens avec bonté.",
+      reference: "Surat Al-Baqarah (2:83)"
+    }
+  },
+  {
+    title: "Hadith 30",
+    arabic: "من تواضع لله رفعه...",
+    ha:  { sharhi: "Duk wanda ya kasance mai tawali'u saboda Allah, Allah zai ɗaukaka shi. Tawali'u shine maɓuɓɓugar girma ta gaskiya — wanda ya saukar da kansa saboda Allah, Allah zai ɗaukaka shi a duniya da lahira." },
+    en:  { sharhi: "Whoever humbles themselves for Allah, Allah will raise them up. Humility is the source of true greatness — whoever lowers themselves for Allah's sake will be elevated in this world and the next." },
+    fr:  { sharhi: "Celui qui s'humilie pour Allah, Allah l'élèvera. L'humilité est la source de la vraie grandeur — celui qui s'abaisse pour Allah sera élevé en ce monde et dans l'au-delà." },
+    ayat: {
+      arabic: "وَخْفِضْ جَنَاحَكَ لِلْمُؤْمِنِينَ...",
+      ha: "Ka saukar da fikafikanka ga muminai.",
+      en: "And lower your wing to the believers.",
+      fr: "Et abaisse ton aile pour les croyants.",
+      reference: "Surat Al-Hijr (15:88)"
+    }
+  },
+  {
+    title: "Hadith 31",
+    arabic: "إن الحلال بيِّن وإن الحرام بيِّن وبينهما أمور مشتبهات...",
+    ha:  { sharhi: "Halal bayyananne ne kuma haram bayyananne ne, amma akwai wasu abubuwa da ke cikin matsakaici (mai shakka) wanda ba kowa ne yake fahimtar su ba. Saboda haka, dole ne a guji wannan abu mai shakka domin kare imani da mutumci." },
+    en:  { sharhi: "The lawful is clear and the unlawful is clear, and between them are doubtful matters. To protect one's faith and integrity, a believer should avoid the grey areas, for one who circles the boundary may fall into what is forbidden." },
+    fr:  { sharhi: "Le licite est clair et l'illicite est clair, et entre eux se trouvent des choses douteuses. Pour protéger sa foi et son intégrité, le croyant doit éviter les zones grises, car qui tourne autour de la frontière risque d'y tomber." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا كُلُوا مِنْ طَيِّبَاتِ مَا رَزَقْنَاكُمْ وَاشْكُرُوا لِلَّهِ...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ci daga cikin halal ɗin abin da muka azurta ku da shi, kuma ku gode wa Allah.",
+      en: "O believers! Eat of the good things We provided you and be grateful to Allah.",
+      fr: "Ô croyants! Mangez de bonnes choses que Nous vous avons accordées et soyez reconnaissants envers Allah.",
+      reference: "Surat Al-Baqarah (2:172)"
+    }
+  },
+  {
+    title: "Hadith 32",
+    arabic: "من حسن إسلام المرء تركه ما لا يعنيه...",
+    ha:  { sharhi: "Daga cikin kyawun musulunci shine ka bar abin da ba ya shafarka. Yin haka yana nuna girman kai na ruhaniya da mai da hankali kan abin da ke da amfani a rayuwa." },
+    en:  { sharhi: "Part of the perfection of one's Islam is leaving what does not concern them. This reflects spiritual maturity and purposeful living — focusing energy on what truly matters rather than wasting it on the irrelevant." },
+    fr:  { sharhi: "Parmi la perfection de l'Islam est de délaisser ce qui ne vous concerne pas. Cela reflète une maturité spirituelle et une vie délibérée — concentrer son énergie sur ce qui compte vraiment plutôt que de la gaspiller." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَذَرُوا مَا بَقِيَ مِنَ الرِّبَا...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ji tsoron Allah, kuma ku bar abin da ya rage daga ribar.",
+      en: "O believers! Fear Allah and give up what remains of interest.",
+      fr: "Ô croyants! Craignez Allah et abandonnez ce qui reste de l'intérêt.",
+      reference: "Surat Al-Baqarah (2:278)"
+    }
+  },
+  {
+    title: "Hadith 33",
+    arabic: "من كان يؤمن بالله واليوم الآخر فليكرم ضيفه...",
+    ha:  { sharhi: "Wanda ya yi imani da Allah da ranar Lahira ya girmama bako. Karɓar baƙi da kyau yana nuna imani mai rai da halin Musulunci na tausayi da karamci." },
+    en:  { sharhi: "Whoever believes in Allah and the Last Day should honour their guest. Generous hospitality is a living expression of faith — it demonstrates the Islamic values of generosity and care for others." },
+    fr:  { sharhi: "Celui qui croit en Allah et au Jour Dernier doit honorer son hôte. L'hospitalité généreuse est une expression vivante de la foi — elle démontre les valeurs islamiques de générosité et de sollicitude." },
+    ayat: {
+      arabic: "وَقُل لِعِبَادِي يَقُولُوا الَّتِي هِيَ أَحْسَنُ...",
+      ha: "Ka ce wa bayina su yi magana mai kyau.",
+      en: "Tell My servants to speak that which is best.",
+      fr: "Dis à Mes serviteurs de dire ce qui est le meilleur.",
+      reference: "Surat Al-Isra (17:53)"
+    }
+  },
+  {
+    title: "Hadith 34",
+    arabic: "إن الله يحب الرفق في الأمر كله...",
+    ha:  { sharhi: "Allah yana son sauki da sassauci a kowane al'amari. Sassauci kuma tausayi su ne hanyoyin da Allah yafi so a bi a cikin hulɗa da mutane da kuma cikin ibada." },
+    en:  { sharhi: "Allah loves gentleness in all affairs. Kindness and gentleness are among the most beloved qualities to Allah — in dealings with people and in acts of worship, softness and ease are preferred." },
+    fr:  { sharhi: "Allah aime la douceur dans toutes les affaires. La bonté et la douceur comptent parmi les qualités les plus aimées d'Allah — dans les relations humaines et dans les actes d'adoration, la douceur est préférable." },
+    ayat: {
+      arabic: "وَلَوْ كُنتَ فَظًّا غَلِيظَ الْقَلْبِ لَانْفَضُّوا مِنْ حَوْلِكَ...",
+      ha: "Da ka kasance mai fushi, da zuciyarka mai tsauri, da sun watse daga gare ka.",
+      en: "If you had been harsh and hard-hearted, they would have dispersed from around you.",
+      fr: "Si tu avais été rude et dur de cœur, ils se seraient dispersés loin de toi.",
+      reference: "Surat Aal-Imran (3:159)"
+    }
+  },
+  {
+    title: "Hadith 35",
+    arabic: "دع ما يريبك إلى ما لا يريبك...",
+    ha:  { sharhi: "Ka bar abin da kake shakka ka koma ga abin da ba ka shakka. Tiyaya da guji abin da ke kawo rudani yana kare mutum daga faɗawa cikin haram." },
+    en:  { sharhi: "Leave that which makes you doubt for that which does not make you doubt. Abandoning what causes uncertainty is a safety measure that protects a person from falling into what is forbidden." },
+    fr:  { sharhi: "Laisse ce qui te doute pour ce qui ne te doute pas. Abandonner ce qui cause l'incertitude est une mesure de sécurité qui protège la personne de tomber dans ce qui est interdit." },
+    ayat: {
+      arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَذَرُوا مَا بَقِيَ مِنَ الرِّبَا...",
+      ha: "Ya ku waɗanda suka yi imani! Ku ji tsoron Allah, kuma ku bar abin da ya rage daga ribar.",
+      en: "O believers! Fear Allah and give up what remains of usury.",
+      fr: "Ô croyants! Craignez Allah et abandonnez ce qui reste de l'usure.",
+      reference: "Surat Al-Baqarah (2:278)"
+    }
+  },
+  {
+    title: "Hadith 36",
+    arabic: "لا تُغفر للقاتل...",
+    ha:  { sharhi: "Babu gafara ga wanda ya kashe ba bisa dalili ba. Rayuwa tsararta ce a Musulunci. Kisan kai na da nauyin azaba mai tsanani." },
+    en:  { sharhi: "The killer will not be forgiven without just cause. Life is sacred in Islam. Taking a life unjustly carries a grave punishment — it is among the most serious transgressions." },
+    fr:  { sharhi: "Le meurtrier ne sera pas pardonné sans juste cause. La vie est sacrée en Islam. Ôter une vie injustement entraîne une grave punition — c'est parmi les transgressions les plus sérieuses." },
+    ayat: {
+      arabic: "وَلَا تَقْتُلُوا النَّفْسَ الَّتِي حَرَّمَ اللَّهُ إِلَّا بِالْحَقِّ...",
+      ha: "Kada ku kashe rai da Allah ya haramta sai dai da gaskiya.",
+      en: "Do not kill the soul which Allah has forbidden except by right.",
+      fr: "Ne tuez pas l'âme qu'Allah a interdite, sauf pour une cause juste.",
+      reference: "Surat Al-Isra (17:33)"
+    }
+  },
+  {
+    title: "Hadith 37",
+    arabic: "خيرُكم من تعلَّم القرآن وعلَّمه...",
+    ha:  { sharhi: "Mafi alkhairi a cikinku shine wanda ya koyi Alkur'ani kuma ya koyar da shi. Wannan Hadith yana nuna matsayin musamman na wadanda suke koyarwa da koya Al-Qur'ani." },
+    en:  { sharhi: "The best among you is one who learns the Quran and teaches it. This hadith elevates those who dedicate themselves to Quranic learning and transmission, placing them at the pinnacle of virtue." },
+    fr:  { sharhi: "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne. Ce hadith élève ceux qui se consacrent à l'apprentissage et à la transmission du Coran, les plaçant au sommet de la vertu." },
+    ayat: {
+      arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ...",
+      ha: "Lallai ne, mu ne muka saukar da Alkur'ani, kuma mu ne masu kiyaye shi.",
+      en: "Indeed, it is We who sent down the reminder and indeed, We will be its guardian.",
+      fr: "C'est Nous qui avons fait descendre le Rappel et c'est Nous qui en sommes les gardiens.",
+      reference: "Surat Al-Hijr (15:9)"
+    }
+  },
+  {
+    title: "Hadith 38",
+    arabic: "من نفَّس عن مؤمن كربةً من كرب الدنيا نفَّس الله عنه كربةً من كرب يوم القيامة...",
+    ha:  { sharhi: "Wanda ya saukake wa mumini wata wahala daga wahalolin duniya, Allah zai saukake masa wahala a ranar kiyama. Taimakon juna yana samu manyan sakamako a lahira." },
+    en:  { sharhi: "Whoever relieves a believer of one of the hardships of this world, Allah will relieve them of a hardship on the Day of Resurrection. Mutual support carries immense reward in the hereafter." },
+    fr:  { sharhi: "Quiconque soulage un croyant d'une des épreuves de ce monde, Allah le soulagera d'une épreuve au Jour de la Résurrection. L'entraide porte d'immenses récompenses dans l'au-delà." },
+    ayat: {
+      arabic: "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى...",
+      ha: "Ku taimaki juna a kan alheri da tsoron Allah.",
+      en: "Cooperate in righteousness and piety.",
+      fr: "Entraidez-vous dans la piété et la crainte d'Allah.",
+      reference: "Surat Al-Ma'idah (5:2)"
+    }
+  },
+  {
+    title: "Hadith 39",
+    arabic: "إن الله كتب الإحسان على كل شيء...",
+    ha:  { sharhi: "Allah ya rubuta kyautatawa a kan kowane abu. Ko a lokacin hallaka wata dabba, dole ne a yi kyautatawa. Wannan shi ne musuluncin duka — nuna kyautatawa ga kowane abu." },
+    en:  { sharhi: "Allah has decreed excellence in all things. Even when slaughtering animals, one must do it with skill and mercy. This hadith extends the principle of ihsan to every act, no matter how small." },
+    fr:  { sharhi: "Allah a décrété l'excellence dans toutes choses. Même lors de l'abattage des animaux, il faut le faire avec soin et miséricorde. Ce hadith étend le principe d'ihsan à chaque acte, si petit soit-il." },
+    ayat: {
+      arabic: "إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالإِحْسَانِ...",
+      ha: "Lalle Allah yana umurni da adalci da kyautatawa.",
+      en: "Indeed, Allah commands justice and excellence.",
+      fr: "En vérité, Allah ordonne la justice et l'excellence.",
+      reference: "Surat An-Nahl (16:90)"
+    }
+  },
+  {
+    title: "Hadith 40",
+    arabic: "كن في الدنيا كأنك غريب أو عابر سبيل...",
+    ha:  { sharhi: "Ka kasance kamar bako a duniya, ko kuma mai wucewa kawai, kada ka yi mata mugun kwadayin rayuwa. Duniya ita ce hanya, ba makoma ba. Lahira ita ce maƙasudi na gaskiya." },
+    en:  { sharhi: "Be in this world as if you were a stranger or a traveller passing through. The world is the path, not the destination. This powerful reminder keeps a believer focused on the eternal life to come." },
+    fr:  { sharhi: "Sois dans ce monde comme si tu étais un étranger ou un voyageur de passage. Le monde est le chemin, pas la destination. Ce puissant rappel garde le croyant concentré sur la vie éternelle à venir." },
+    ayat: {
+      arabic: "وَمَا الْحَيَاةُ الدُّنْيَا إِلَّا مَتَاعُ الْغُرُورِ...",
+      ha: "Kuma ba abin da rayuwar duniya take ba face wani ɗan jin daɗin yaudara.",
+      en: "And what is the worldly life except the enjoyment of delusion.",
+      fr: "Et qu'est-ce que la vie mondaine sinon une jouissance illusoire.",
+      reference: "Surat Al-Hadid (57:20)"
+    }
+  }
+];
+
+// ─── State ─────────────────────────────────────────────────────────────
+let currentLang = 'ha';
+let selectedBtn = null;
+
+// ─── Build buttons ─────────────────────────────────────────────────────
+const btnContainer = document.getElementById('hadithButtons');
+hadiths.forEach((h, i) => {
+  const b = document.createElement('button');
+  b.textContent = `${i + 1}`;
+  b.setAttribute('aria-label', h.title);
+  b.onclick = () => showHadith(i, b);
+  btnContainer.appendChild(b);
+});
+
+// ─── Language ──────────────────────────────────────────────────────────
+function setLang(lang, el) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  if (selectedBtn) showHadith(parseInt(selectedBtn.dataset.index), selectedBtn);
+}
+
+// ─── Show Hadith ───────────────────────────────────────────────────────
+function showHadith(index, btn) {
+  const h = hadiths[index];
+  const d = document.getElementById('hadithDisplay');
+
+  // Button highlight
+  if (selectedBtn) selectedBtn.classList.remove('selected');
+  if (btn) {
+    btn.classList.add('selected');
+    btn.dataset.index = index;
+    selectedBtn = btn;
+  }
+
+  const langData  = h[currentLang];
+  const sharhi    = langData ? langData.sharhi : h.ha.sharhi;
+  const ayatTrans = h.ayat[currentLang] || h.ayat.ha;
+
+  const sectionLabel = {
+    ha: { commentary: 'SHARHI', verse: 'AYAYAR QUR\'ANI' },
+    en: { commentary: 'COMMENTARY', verse: 'QURANIC VERSE' },
+    fr: { commentary: 'COMMENTAIRE', verse: 'VERSET CORANIQUE' }
+  }[currentLang];
+
+  d.innerHTML = `
+    <div class="card-header">
+      <h2 class="card-title">${h.title}</h2>
+      <div class="card-number">${index + 1}</div>
+    </div>
+
+    <div class="arabic-main" dir="rtl">${h.arabic}</div>
+
+    <div class="section-label">${sectionLabel.commentary}</div>
+    <div class="sharhi-block"><p>${sharhi}</p></div>
+
+    <div class="section-label">${sectionLabel.verse}</div>
+    <div class="ayat-block">
+      <div class="ayat-arabic" dir="rtl">${h.ayat.arabic}</div>
+      <p class="ayat-translation">${ayatTrans}</p>
+      <p class="ayat-ref">${h.ayat.reference}</p>
+    </div>
+  `;
+
+  d.style.animation = 'none';
+  requestAnimationFrame(() => { d.style.animation = 'fadeUp 0.5s ease both'; });
+  d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
